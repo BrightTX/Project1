@@ -1,0 +1,6 @@
+this my study for nod from Britnney     
+package.json is the blue print have all the info a bout the project 
+what is meta data (data about data ) more important is contains 
+
+dependencies 
+list of packages that the application  depends on
