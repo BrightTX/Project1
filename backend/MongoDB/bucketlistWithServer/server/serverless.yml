@@ -1,0 +1,14 @@
+service: bucketlistapi  # The name of the service
+
+provider:
+  name: aws  # Specifies the cloud provider (AWS in this case)
+  runtime: nodejs20.x  # The runtime environment for the functions (Node.js 18.x)
+  stage: dev  # The stage of the deployment (e.g., dev, staging, production)
+  region: us-east-1  # The AWS region where the service will be deployed
+
+functions:
+  app:  # Name of the function
+    handler: index.index  # The file and method that AWS Lambda should invoke (app.js file, handler method)
+    events:
+      - http: ANY /  # HTTP event that triggers the function on any HTTP method at the root path
+      - http: 'ANY /{proxy+}'  # HTTP event that triggers the function on any HTTP method at any path (using a proxy)

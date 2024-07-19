@@ -1,0 +1,26 @@
+
+.light-theme {
+  background-color: #ffffff;
+  color: #333333;
+}
+.dark-theme {
+  background-color: #333333;
+  color: #ffffff;
+}
+.app-container {
+  padding: 20px;
+  text-align: center;
+}
+button {
+  padding: 10px;
+  cursor: pointer;
+}
+  
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

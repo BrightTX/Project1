@@ -1,0 +1,107 @@
+
+// tell mongodb which db to use
+use mm_demo
+
+use('MM_demo')
+
+// create collection - to store like doc together
+db.createCollection("people")
+
+//insert do 
+db.people.insertOne({name:'Deng',last:'Smyth', age:23});
+db.people.insertOne({ name: 'frodo', last: 'Baggins', age: 50 });
+
+// Multiple Document 
+db.people.insertMany([
+    {name:'Michael' ,age:31},
+    {name:'Piyush' , age:36}
+]);
+
+//Gives everything back 
+db.people.find({})
+
+//First object is query object (Which docs we want back)
+
+//Second object is project (Which fields we want to show/hide)
+//Sort object which order we want the documents in
+db.people.find({name:'Denge'});
+
+db.people.find({age:68})
+
+// find people whoa are less than 30 years old
+db.people.find({age:{$lt:25}})
+
+// find people who are greater than Or equal to 39
+
+
+// find the document where this file exists 
+db.people.find({last:{exists:false}})
+
+// Find documents containing the following names: "Deng", "Piyush"
+db.people.find({ name: { $in: ["Deng", "Piyush"] } })
+
+// field "age" theExclude
+db.people.find({ name: { $in: ["Deng", "Piyush"] } }, { age: 0 })
+
+// Let's exclude age again but find everyone this time
+db.people.find({}, { age: 0 });
+
+// Let's also remove the Objectld field
+db.people.find({}, { age: 0, _id: 0 });
+
+// Return everyone but sort them ascending
+db.people.find({}).sort({ age: 1 });
+
+// descending ? them sort we do HowChallenge:
+db.people.find({}).sort({ age: -1 });
+
+// field? single a as last and name return we doHow
+// Retrieves all documents from the "people" collection and projects a new field
+
+// called "fullname" that contains the concatenated values of the "name" and
+// "last" fields
+
+db.people.find({}, { "fullname": { $concat: ["$name", " ", "$last"] } })
+
+
+db.people.find({}, {
+    "fullname": {
+        //Conditional
+        $cond: {
+            //IF last name is NOT null then concat first and last
+            if: { $ne: ["$last", null] },
+            then: { $concat: ["$name", " ", "$last"] },
+            //Else just give me last
+            else: "$name"
+        }
+    }
+})
+
+//Update 
+db.people.updateOne({name:'Deng'},{$set:{age:36}});
+
+//Removes a field from document
+db.people.updateOne({ name: "Deng" }, { $unset: { age: "" } })
+
+// Updating a field that doesnt exist - Creates it
+db.people.updateOne({ name: "Deng" },{$set:{occupation:'Instructor'}})
+
+// updating aka renaming a field(need more work )
+db.people.updateOne({name:'Deng'},{$rename:{job}})
+
+// update every document in our DB 
+db.people.updateMany({}, { $inc: { age: 1 } })
+
+// Let's update one of our documents to have a new field first
+db.people.updateOne({ name: "Michael" }, { $set: { favNum: 10 } })
+
+// Now let update again using $mul
+
+db.people.updateOne({ name: "Michael" }, { $mul: { favNum: 7} })
+
+// delete 
+db.people.deleteOne({name:'Michael'});
+
+// Delete multiple document where age is less than 40
+db.people.find({})
+db.people.deleteMany({ age: { $lt: 40 } });
