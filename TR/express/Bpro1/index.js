@@ -41,7 +41,7 @@ let option = recipe [food]; // here we create option  to connect recipe to food
 //But if any information is missing, display:
 //Please provide name AND bankBalance in the query parameters.
 app.get('/bank',(req,res) => {
-let {name, bankBalance} =req.query
+let { name , bankBalance } = req.query // if i want to give back about tow  query yo can do it like that 
 if (name,bankBalance) {
     res.send(`hay${name},give me ${bankBalance}, I know you have it. `)
 }else{
